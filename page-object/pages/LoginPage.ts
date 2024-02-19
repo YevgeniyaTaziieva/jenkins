@@ -27,5 +27,6 @@ export class LoginPage extends BasePage {
     await this.emailField.fill(process.env.EMAIL as string);
     await this.passField.fill(process.env.PASSWORD as string);
     await this.submitBtn.click();
+    console.log("Logged in");
   }
 }
