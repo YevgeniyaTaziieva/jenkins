@@ -1,5 +1,5 @@
 import { Locator, Page } from "@playwright/test";
-import {Navigation} from "./pages/Navigation.ts"
+import {Navigation} from "./components/Navigation.ts"
 
 export class BasePage {
   readonly page: Page;
