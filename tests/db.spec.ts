@@ -20,7 +20,7 @@ let getUser = function () {
   });
 };
 
-test.describe.only("Testing db", () => {
+test.describe("Testing db", () => {
   test.afterEach(() => {
     connection.end();
   });

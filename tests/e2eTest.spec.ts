@@ -1,3 +1,9 @@
 import { test } from "../fixture/fixture";
+import {LoginPage} from "../page-object/pages/LoginPage.ts"
 
-test("Login", async ({ loginPage, page }) => {});
+test("Login to site", async ({ loginPage, page }) => {
+    const login = new LoginPage(page);
+    await login.login();
+    await login.Navigation.goHome()
+    await page.close();
+});
