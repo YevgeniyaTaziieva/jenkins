@@ -4,6 +4,6 @@ import {LoginPage} from "../page-object/pages/LoginPage.ts"
 test("Login to site", async ({ loginPage, page }) => {
     const login = new LoginPage(page);
     await login.login();
-    await login.Navigation.goHome()
-    await page.close();
+    await login.Navigation.newDataset();
+    // await page.pause();
 });
