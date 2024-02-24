@@ -16,6 +16,9 @@ export class Navigation {
   readonly userRankingItem: Locator;
   readonly blogItem: Locator;
   readonly documentationItem: Locator;
+  readonly progressionItem: Locator;
+  readonly hostCompetitionItem: Locator;
+  readonly kaggleXItem: Locator;
   readonly backBtn: Locator;
   readonly backDatasetskBtn: Locator;
 
@@ -32,14 +35,17 @@ export class Navigation {
     this.moreList = page.locator('//div/div[3]/div[3]/div[1]/div[1]/ul/li[8]/div/a');
     this.userRankingItem = page.locator('//ul/a[@href="/rankings"]/li');
     this.blogItem = page.locator('//a/li[@data-click-log-id="blog"]');
-    this.documentationItem = page.locator('//li/a[@data-click-log-id="documentation"]');
+    this.documentationItem = page.locator('//a[@href="/docs"]');
+    this.progressionItem = page.locator('(//a[@href="/progression"])[1]');
+    this.hostCompetitionItem = page.locator('(//a[@href="/host"])[1]');
+    this.kaggleXItem = page.locator('(//a[@href="/kagglex"])[1]');
     this.backBtn  = page.locator("//button[@aria-label='Close']");
     this.backDatasetskBtn  = page.locator("//div[@class='sc-iLXxbI hmvdWC']//button[@class='sc-jIBlqr hXNnzD google-material-icons']")
 
   }
   async goHome() {
     await this.homeIcon.click()
-    expect(this.page.waitForURL(process.env.STAGE_URL as string))
+    await expect(this.page.waitForURL(process.env.STAGE_URL as string))
     await expect(this.page.locator('//h1')).toContainText('Welcome')
   }
 
@@ -66,7 +72,7 @@ export class Navigation {
   }
 
   async newOrganization(){
-    await this.backBtn.click();
+    await this.page.goto(process.env.STAGE_URL as string);
     await this.createBtn.click();
     await this.newOrganizationItem.click();
     await this.page.waitForURL(`${process.env.STAGE_URL}?createOrg=true`);
@@ -83,38 +89,67 @@ export class Navigation {
   }
 
   async newDataset(){
-    await this.backBtn.click();
+    await this.page.goto(process.env.STAGE_URL as string);
     await this.createBtn.click();
     await this.newDatasetItem.click();
-    expect(this.page.waitForURL(/datasets/));
+    this.page.waitForURL(/datasets/);
     await expect (this.page.locator('(//div/div/div/button[@role="tab"])[1]')).toBeVisible();
     await expect (this.page.locator('(//div/div/div/button[@role="tab"])[2]')).toBeVisible();
     await expect (this.page.locator('(//div/div/div/button[@role="tab"])[3]')).toBeVisible();
-    expect (this.page.locator('//div/div/div/h3')).toHaveText('Drag & drop files to upload');
+    await expect (this.page.locator('//div/div/div/h3')).toHaveText('Drag & drop files to upload');
     await this.backDatasetskBtn.click();
   }
 
   async openUserRankings(){
+    await this.page.goto(process.env.STAGE_URL as string);
     await this.moreList.click();
     await this.userRankingItem.click();
-    expect(this.page.waitForURL(/rankings/));
-    expect (this.page.locator('//h1')).toHaveText('Kaggle Rankings');
+    await this.page.waitForURL(/rankings/);
+    await expect (this.page.locator('(//h1)[1]')).toHaveText('Kaggle Rankings');
     // const rows = await this.page.locator('//div[@role="row"]').count();  //Oleksii: for some reason this count returns me 0. Wanted to check that number of rows on the page > 1
     // console.log(rows);
-    expect (this.page.locator('(//div[@role="row"])[1]')).toBeVisible()
+    await expect (this.page.locator('(//div[@role="row"])[1]')).toBeVisible()
   }
 
   async openBlog(){
+    await this.page.goto(process.env.STAGE_URL as string);
     await this.moreList.click();
     await this.blogItem.click();
     await this.page.waitForURL('https://medium.com/kaggle-blog');
-    expect (this.page.locator('(//div[@title="Go to Kaggle Blog"])[1]')).toBeTruthy()
+    await expect (this.page.locator('(//div[@title="Go to Kaggle Blog"])[1]')).toBeTruthy()
   }
 
   async openDocumentation(){
+    await this.page.goto(process.env.STAGE_URL as string);
     await this.moreList.click();
     await this.documentationItem.click();
-    await this.page.waitForURL(`${process.env.STAGE_URL}/docs`);
-    await expect(this.page.locator('//h1')).toHaveText('How To Use Kaggle');
+    await this.page.waitForURL(`${process.env.STAGE_URL}docs`);
+    await expect(this.page.locator('(//h1)[1]')).toHaveText('How To Use Kaggle');
+    await expect(this.page.locator('//div/div/a/div/div')).toHaveCount(9)
+  }
+
+  async openProgression(){
+    await this.page.goto(process.env.STAGE_URL as string);
+    await this.moreList.click();
+    await this.progressionItem.click();
+    await this.page.waitForURL(`${process.env.STAGE_URL}progression`);
+    await expect(this.page.locator('(//h1)[1]')).toContainText('Kaggle Progression System')
+  }
+
+  async openHostCompetition(){
+    await this.page.goto(process.env.STAGE_URL as string);
+    await this.moreList.click();
+    await this.hostCompetitionItem.click();
+    await this.page.waitForURL(`${process.env.STAGE_URL}c/about/host`);
+    await expect(this.page.locator('(//h1)[1]')).toHaveText('Host your data science competition on Kaggle');
+    await expect(this.page.locator('//span/following-sibling::div/button')).toBeVisible()
+  }
+
+  async openKaggleX(){
+    await this.page.goto(process.env.STAGE_URL as string);
+    await this.moreList.click();
+    await this.kaggleXItem.click();
+    await this.page.waitForURL(`${process.env.STAGE_URL}kagglex`);
+    await expect(this.page.locator('(//h1)[1]')).toHaveText('KaggleX BIPOC Mentorship Program')
   }
 }

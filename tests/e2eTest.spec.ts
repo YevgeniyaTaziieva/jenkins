@@ -7,6 +7,11 @@ test("Login to site", async ({ loginPage, page }) => {
     await page.waitForTimeout(500);
     await login.Navigation.newModel();
     await login.Navigation.newOrganization();
-    await login.Navigation.newNotebook();
+    await login.Navigation.newDataset();
+    await login.Navigation.openKaggleX();
+    await login.Navigation.openDocumentation();
+    await login.Navigation.openProgression();
+    await login.Navigation.openUserRankings();
+    await login.Navigation.openHostCompetition();
     await page.pause();
 });
