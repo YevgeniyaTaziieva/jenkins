@@ -1,5 +1,5 @@
 import { test } from "../fixture/fixture";
-import {LoginPage} from "../page-object/pages/LoginPage.ts"
+import {LoginPage} from "../page-object/pages/LoginPage"
 
 test("Login to site", async ({ loginPage, page }) => {
     const login = new LoginPage(page);

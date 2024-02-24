@@ -15,22 +15,27 @@ export class Navigation {
   readonly moreList: Locator;
   readonly userRankingItem: Locator;
   readonly blogItem: Locator;
-  readonly documentationItem: Locator
+  readonly documentationItem: Locator;
+  readonly backBtn: Locator;
+  readonly backDatasetskBtn: Locator;
 
   constructor(page: Page) {
     this.page = page
+    this.createBtn = page.getByRole('button', { name: 'Create' });
     this.createBtn = page.getByRole('button', { name: 'Create' });
     this.homeIcon = page.getByRole('link', { name: 'Kaggle' });
     this.newNotebookItem = page.getByRole('menuitem', { name: 'code New Notebook' }).getByRole('paragraph');
     this.newDatasetItem = page.getByRole('menuitem', { name: 'table_chart New Dataset' });
     this.newModelItem = page.locator('(//ul/li[@role="menuitem"])[3]');
     this.newCompetitionItem = page.getByRole('menuitem', { name: 'emoji_events New Competition' });
-    this.newOrganizationItem = page.getByRole('menuitem', { name: 'corporate_fare New' })
-    this.moreList = page.locator('(//ul/li)[14]');
+    this.newOrganizationItem = page.getByRole('menuitem', { name: 'corporate_fare' })
+    this.moreList = page.locator('//div/div[3]/div[3]/div[1]/div[1]/ul/li[8]/div/a');
     this.userRankingItem = page.locator('//ul/a[@href="/rankings"]/li');
-    this.blogItem = page.locator('//li[@data-click-log-id="blog"]');
-    this.documentationItem = page.locator('//li[@data-click-log-id="documentation"]');
-    
+    this.blogItem = page.locator('//a/li[@data-click-log-id="blog"]');
+    this.documentationItem = page.locator('//li/a[@data-click-log-id="documentation"]');
+    this.backBtn  = page.locator("//button[@aria-label='Close']");
+    this.backDatasetskBtn  = page.locator("//div[@class='sc-iLXxbI hmvdWC']//button[@class='sc-jIBlqr hXNnzD google-material-icons']")
+
   }
   async goHome() {
     await this.homeIcon.click()
@@ -61,7 +66,7 @@ export class Navigation {
   }
 
   async newOrganization(){
-    await this.page.goto(process.env.STAGE_URL as string);
+    await this.backBtn.click();
     await this.createBtn.click();
     await this.newOrganizationItem.click();
     await this.page.waitForURL(`${process.env.STAGE_URL}?createOrg=true`);
@@ -78,6 +83,7 @@ export class Navigation {
   }
 
   async newDataset(){
+    await this.backBtn.click();
     await this.createBtn.click();
     await this.newDatasetItem.click();
     expect(this.page.waitForURL(/datasets/));
@@ -85,6 +91,7 @@ export class Navigation {
     await expect (this.page.locator('(//div/div/div/button[@role="tab"])[2]')).toBeVisible();
     await expect (this.page.locator('(//div/div/div/button[@role="tab"])[3]')).toBeVisible();
     expect (this.page.locator('//div/div/div/h3')).toHaveText('Drag & drop files to upload');
+    await this.backDatasetskBtn.click();
   }
 
   async openUserRankings(){
