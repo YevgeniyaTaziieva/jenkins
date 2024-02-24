@@ -1,31 +1,34 @@
-import { Locator, Page } from "@playwright/test";
+import { Locator, Page, expect } from "@playwright/test";
 import { BasePage } from "../BasePage";
-import dotenv from "dotenv";
-dotenv.config();
 
-export class LoginPage extends BasePage {
-  readonly emailField: Locator;
-  readonly passField: Locator;
-  readonly submitBtn: Locator;
-  readonly signInBtn: Locator;
-  readonly signInByEmailBtn: Locator;
+export default class LoginPage extends BasePage {
+  readonly emailField: any;
+  readonly passField: any;
+  readonly submitBtn: any;
+  readonly signInBtn: any;
+  readonly signInByEmailBtn: any;
+  readonly kaggleTitle: any;
 
   constructor(page: Page) {
     super(page);
-    this.signInBtn = page.locator("(//button[@class='sc-iEYVpv dLIycx'])[1]");
+    this.signInBtn = page.locator("//div[@class='sc-dxfTlo dqVlR']/a/button[@class='sc-eXzmLu jSfUoM'][1]");
     this.signInByEmailBtn = page.locator(
-      "(//button[@class='sc-iEYVpv dWZiyj'])[2]"
+      ("//div[@class='sc-fgsquE lpbfZW']//button[@class='sc-eXzmLu dSFNm'][2]")
     );
     this.emailField = page.locator("//input[@name='email']");
     this.passField = page.locator("//input[@name='password']");
     this.submitBtn = page.locator("//button[@type='submit']");
+    this.kaggleTitle = page.locator("//h1[@class='sc-kFCroH sc-idnTxV ctlLBx SklmE']")
   }
-  async login() {
-    await this.page.goto(process.env.STAGE_URL as string);
+  async login(email ='illyastud2002@gmail.com', password = 'Test12345@') {
+    await this.page.goto('https://www.kaggle.com/');
     await this.signInBtn.click();
     await this.signInByEmailBtn.click();
-    await this.emailField.fill(process.env.EMAIL as string);
-    await this.passField.fill(process.env.PASSWORD as string);
-    await this.submitBtn.click();
+    await this.emailField.fill(email);
+    await this.passField.fill(password);
+    await this.submitBtn.click(); 
+    await expect(this.kaggleTitle).toHaveText(`Welcome, Test Hillel!`)
+    await expect(this.page).toHaveURL("https://www.kaggle.com/");
+
   }
 }
