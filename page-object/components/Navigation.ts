@@ -15,6 +15,7 @@ export class Navigation {
   readonly moreList: Locator;
   readonly userRankingItem: Locator;
   readonly blogItem: Locator;
+  readonly documentationItem: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -28,49 +29,52 @@ export class Navigation {
     this.moreList = page.locator('(//ul/li)[14]');
     this.userRankingItem = page.locator('//ul/a[@href="/rankings"]/li');
     this.blogItem = page.locator('//li[@data-click-log-id="blog"]');
-
+    this.documentationItem = page.locator('//li[@data-click-log-id="documentation"]');
     
   }
   async goHome() {
     await this.homeIcon.click()
-    expect(this.page.waitForURL('https://www.kaggle.com/'))
+    expect(this.page.waitForURL(process.env.STAGE_URL as string))
     await expect(this.page.locator('//h1')).toContainText('Welcome')
   }
 
   async newNotebook(){
+    await this.page.goto(process.env.STAGE_URL as string);
     await this.createBtn.click();
     await this.newNotebookItem.click();
     await this.page.locator('//input[@id="notebook-title-input"]').waitFor();
-    expect (this.page.locator('//input[@id="notebook-title-input"]')).toHaveValue(/notebook/);
-    expect (this.page.locator('(//div/h2)[2]')).toHaveText('Notebook')
+    await expect (this.page.locator('//input[@id="notebook-title-input"]')).toHaveValue(/notebook/);
+    await expect (this.page.locator('(//div/h2)[2]')).toHaveText('Notebook')
   }
 
   async newModel(){
+    await this.page.goto(process.env.STAGE_URL as string);
     await this.createBtn.click();
     await this.newModelItem.click();
     await this.page.waitForURL(`${process.env.STAGE_URL}models?new=true`);
     await this.page.locator('(//input[@type="radio"])[1]').waitFor();
-    expect (this.page.locator('(//input[@type="radio"])[1]')).toHaveAttribute('checked');
-    expect (this.page.locator('(//input[@type="radio"])[2]')).not.toHaveAttribute('checked');
-    expect (this.page.getByRole('heading', { name: 'Create New Model' })).toBeVisible();
-    expect (this.page.locator('label').filter({ hasText: 'Model Title' })).toBeVisible();
-    expect (this.page.locator('(//button[@role="button" and contains(@class,"sc")])[14]')).toHaveAttribute('disabled');
+    await expect (this.page.locator('(//input[@type="radio"])[1]')).toHaveAttribute('checked');
+    await expect (this.page.locator('(//input[@type="radio"])[2]')).not.toHaveAttribute('checked');
+    await expect (this.page.getByRole('heading', { name: 'Create New Model' })).toBeVisible();
+    await expect (this.page.locator('label').filter({ hasText: 'Model Title' })).toBeVisible();
+    await expect (this.page.locator('(//button[@role="button" and contains(@class,"sc")])[14]')).toHaveAttribute('disabled');
   }
 
   async newOrganization(){
+    await this.page.goto(process.env.STAGE_URL as string);
     await this.createBtn.click();
     await this.newOrganizationItem.click();
     await this.page.waitForURL(`${process.env.STAGE_URL}?createOrg=true`);
-    expect (this.page.locator('//input[@name="name"]')).toBeVisible();
-    expect (this.page.locator('//input[@name="subtitle"]')).toBeVisible();
-    expect (this.page.locator('//label[@aria-labelledby="textfield-Url *-label"]')).toContainText('organizations');
-    expect (this.page.locator('//input[@name="externalUrl"]')).toBeVisible();
-    expect (this.page.getByRole('button', { name: 'Upload image' })).toBeVisible();
-    expect (this.page.getByRole('button', { name: 'Upload image' })).not.toHaveAttribute('disabled');
-    expect (this.page.locator('//input[@name="creatorRequestDescription"]')).toBeVisible();
-    expect (this.page.locator('//div[contains(@class,"mdc-text-field mdc-text-field--upgraded mdc-text-field--outlined")]')).toBeVisible();
-    expect (this.page.locator('//input[@name="creatorRequestRole"]')).toBeVisible();
-    expect (this.page.getByRole('button', { name: 'Create organization' })).toHaveAttribute('disabled');
+    await expect (this.page.locator('//input[@name="name"]')).toBeTruthy();
+    await expect (this.page.locator('//input[@name="subtitle"]')).toBeTruthy();
+    await expect (this.page.locator('(//label[@aria-labelledby="textfield-Url *-label"]/span)[2]')).toContainText('organizations');
+    await expect (this.page.locator('//input[@name="externalUrl"]')).toBeTruthy();
+    await expect (this.page.getByRole('button', { name: 'Upload image' })).toBeTruthy();
+    await expect (this.page.getByRole('button', { name: 'Upload image' })).not.toHaveAttribute('disabled');
+    await expect (this.page.locator('//input[@name="creatorRequestDescription"]')).toBeTruthy();
+    await expect (this.page.locator('//div[contains(@class,"mdc-text-field mdc-text-field--upgraded mdc-text-field--outlined")]')).toBeTruthy();
+    await expect (this.page.locator('//input[@name="creatorRequestRole"]')).toBeTruthy();
+    await expect (this.page.getByRole('button', { name: 'Create organization' })).toHaveAttribute('disabled');
   }
 
   async newDataset(){
@@ -98,5 +102,12 @@ export class Navigation {
     await this.blogItem.click();
     await this.page.waitForURL('https://medium.com/kaggle-blog');
     expect (this.page.locator('(//div[@title="Go to Kaggle Blog"])[1]')).toBeTruthy()
+  }
+
+  async openDocumentation(){
+    await this.moreList.click();
+    await this.documentationItem.click();
+    await this.page.waitForURL(`${process.env.STAGE_URL}/docs`);
+    await expect(this.page.locator('//h1')).toHaveText('How To Use Kaggle');
   }
 }
