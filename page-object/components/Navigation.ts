@@ -103,9 +103,9 @@ export class Navigation {
     await this.createBtn.click();
     await this.newDatasetItem.click();
     this.page.waitForURL(/datasets/);
-    await expect (this.page.locator('(//div/div/div/button[@role="tab"])[1]')).toBeVisible();
-    await expect (this.page.locator('(//div/div/div/button[@role="tab"])[2]')).toBeVisible();
-    await expect (this.page.locator('(//div/div/div/button[@role="tab"])[3]')).toBeVisible();
+    await expect (this.page.locator('(//button[@role="tab"])[1]')).toBeVisible();
+    await expect (this.page.locator('(//button[@role="tab"])[2]')).toBeVisible();
+    await expect (this.page.locator('(//button[@role="tab"])[3]')).toBeVisible();
     await expect (this.page.locator('//div/div/div/h3')).toHaveText('Drag & drop files to upload');
     await this.backDatasetskBtn.click();
   }
