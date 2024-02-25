@@ -45,7 +45,7 @@ test.describe("Kaggle Search Tests", () => {
     //Check for content 
     await expect(kagglePage.noResultsFoundContentTitle).toContainText('No results found for ');
   });
-  test.only("should search by popular tag and display corresponding content", async ({ page }) => {
+  test("should search by popular tag and display corresponding content", async ({ page }) => {
     const kagglePage = new SearchPage(page);
     
     //Check popular tags section
