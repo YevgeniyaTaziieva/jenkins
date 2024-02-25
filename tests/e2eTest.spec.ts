@@ -4,7 +4,7 @@ import {LoginPage} from "../page-object/pages/LoginPage"
 test("Login to site", async ({ loginPage, page }) => {
     const login = new LoginPage(page);
     await login.login();
-    await page.getByRole('button', { name: 'Dismiss' }).click();
+    // await page.getByRole('button', { name: 'Dismiss' }).click();
     await page.waitForTimeout(500);
     await login.Navigation.newModel();
     await login.Navigation.newOrganization();
