@@ -12,6 +12,12 @@ searchPageLocator: any;
   readonly filterByFileTypeBtn: Locator;
   readonly filterByLicenseBtn: Locator;
   readonly searchResultItem: Locator;
+  readonly selectedFilterOption: Locator;
+  readonly searchResultAmount: Locator;
+  readonly noResultsFoundContentTitle: Locator;
+  readonly popularTagsSection: Locator;
+  readonly popularTagFirstOption: Locator;
+  readonly removeTagBtn: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -23,6 +29,11 @@ searchPageLocator: any;
     this.filterByFileTypeBtn = page.locator("//input[@class='PrivateSwitchBase-input css-1m9pwf3'][@name='datasetFileTypes:csv']")
     this.filterByLicenseBtn = page.locator("//input[@class='PrivateSwitchBase-input css-1m9pwf3'][@name='datasetLicense:Commercial']");
     this.searchResultItem = page.locator("//div[@id='results']");
+    this.noResultsFoundContentTitle = page.locator("//h2[@class='sc-fHejqy sc-eUcPGm JwKtU kqzTJI']");
+    this.popularTagsSection = page.locator("//div[@class='sc-lihxfj ikMyaq mdc-chip-set']");
+    this.popularTagFirstOption = page.locator("//button[@class='sc-lfpCDB cSKonI'][1]");
+    this.removeTagBtn = page.locator("//button[@class='sc-jIBlqr dGIdyE google-material-icons']");
+
   }
 
   async searchFor(query: string) {
@@ -49,5 +60,9 @@ searchPageLocator: any;
 
   async getFirstSearchResult() {
     return this.searchResultItem.first().innerText();
+  }
+
+  async filterByPopularTagOption() {
+    await this.popularTagFirstOption.click()
   }
 }
