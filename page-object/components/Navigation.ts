@@ -19,6 +19,11 @@ export class Navigation {
   readonly progressionItem: Locator;
   readonly hostCompetitionItem: Locator;
   readonly kaggleXItem: Locator;
+  readonly supportContactItem: Locator;
+  readonly communityGuidelinesItem: Locator;
+  readonly teamItem: Locator;
+  readonly termsItem: Locator;
+  readonly privacyItem: Locator;
   readonly backBtn: Locator;
   readonly backDatasetskBtn: Locator;
 
@@ -39,6 +44,11 @@ export class Navigation {
     this.progressionItem = page.locator('(//a[@href="/progression"])[1]');
     this.hostCompetitionItem = page.locator('(//a[@href="/host"])[1]');
     this.kaggleXItem = page.locator('(//a[@href="/kagglex"])[1]');
+    this.supportContactItem = page.locator('(//a[@href="/contact"])[1]');
+    this.communityGuidelinesItem = page.locator('(//a[@href="/community-guidelines"])[1]');
+    this.teamItem = page.locator('(//a[@href="/about/team"])[1]');
+    this.termsItem = page.locator('(//a[@href="/terms"])[1]');
+    this.privacyItem = page.locator('(//a[@href="/privacy"])[1]');
     this.backBtn  = page.locator("//button[@aria-label='Close']");
     this.backDatasetskBtn  = page.locator("//div[@class='sc-iLXxbI hmvdWC']//button[@class='sc-jIBlqr hXNnzD google-material-icons']")
 
@@ -151,5 +161,48 @@ export class Navigation {
     await this.kaggleXItem.click();
     await this.page.waitForURL(`${process.env.STAGE_URL}kagglex`);
     await expect(this.page.locator('(//h1)[1]')).toHaveText('KaggleX BIPOC Mentorship Program')
+  }
+
+  async openSupportContact(){
+    await this.page.goto(process.env.STAGE_URL as string);
+    await this.moreList.click();
+    await this.supportContactItem.click();
+    await this.page.waitForURL(`${process.env.STAGE_URL}contact`);
+    await expect(this.page.locator('(//h1)[1]')).toHaveText('Contact');
+    await expect(this.page.locator('(//h2[@id="/account"])[1]')).toHaveText('Account/Login');
+    await expect(this.page.locator('(//h2[@id="/competitions"])[1]')).toHaveText('Competitions');
+    await expect(this.page.locator('(//h2[@id="/datasets"])[1]')).toHaveText('Datasets');
+    await expect(this.page.locator('(//h2[@id="/notebooks"])[1]')).toHaveText('Notebooks');
+    await expect(this.page.locator('(//h2[@id="/privacy"])[1]')).toHaveText('Privacy and Security');
+    await expect(this.page.locator('(//h2[@id="/organizations"])[1]')).toHaveText('Organizations');
+    await expect(this.page.locator('(//h2[@id="/other"])[1]')).toHaveText('Other')
+  }
+
+  async openTeam(){
+    await this.page.goto(process.env.STAGE_URL as string);
+    await this.moreList.click();
+    await this.teamItem.click();
+    await this.page.waitForURL(`${process.env.STAGE_URL}about/team`);
+    await expect(this.page.locator('(//h1)[1]')).toHaveText('Meet Our Team');
+    await expect(await this.page.locator('//div/img').count()).toBeGreaterThan(30);
+
+  }
+
+  async openTerms(){
+    await this.page.goto(process.env.STAGE_URL as string);
+    await this.moreList.click();
+    await this.termsItem.click();
+    await this.page.waitForURL(`${process.env.STAGE_URL}terms`);
+    await expect(this.page.locator('(//h1)[1]')).toHaveText('Terms');
+    await expect(this.page.locator('(//div/p/following-sibling::p)[1]')).toContainText('Effective Date')
+  }
+
+  async openPrivacy(){
+    await this.page.goto(process.env.STAGE_URL as string);
+    await this.moreList.click();
+    await this.privacyItem.click();
+    await this.page.waitForURL(`${process.env.STAGE_URL}privacy`);
+    await expect(this.page.locator('(//h1)[1]')).toHaveText('Privacy Policy');
+    await expect(this.page.locator('(//div/p/following-sibling::h2)[1]')).toHaveText('Information Kaggle Collects')
   }
 }

@@ -14,11 +14,11 @@ export class LoginPage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.signInBtn = page.locator("//div[@class='sc-dxfTlo dqVlR']/a/button[@class='sc-eXzmLu jSfUoM'][1]");
-    this.signInByEmailBtn = page.locator("//div[@class='sc-fgsquE lpbfZW']//button[@class='sc-eXzmLu dSFNm'][2]");
+    this.signInByEmailBtn = page.locator("(//div/button[@role='button']/i)[1]");
     this.emailField = page.locator("//input[@name='email']");
     this.passField = page.locator("//input[@name='password']");
     this.submitBtn = page.locator("//button[@type='submit']");
-    this.kaggleTitle = page.locator("//h1[@class='sc-kFCroH sc-idnTxV ctlLBx SklmE']")
+    this.kaggleTitle = page.locator("//h1")/*[@class='sc-kFCroH sc-idnTxV ctlLBx SklmE']")*/
   }
   async login() {
     await this.page.goto(process.env.STAGE_URL as string);
