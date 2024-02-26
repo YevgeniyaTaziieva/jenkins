@@ -106,7 +106,7 @@ export class Navigation {
     await expect (this.page.locator('(//button[@role="tab"])[1]')).toBeVisible();
     await expect (this.page.locator('(//button[@role="tab"])[2]')).toBeVisible();
     await expect (this.page.locator('(//button[@role="tab"])[3]')).toBeVisible();
-    await expect (this.page.locator('//div/div/div/h3')).toHaveText('Drag & drop files to upload');
+    await expect (this.page.locator('//h3[@class="sc-ktwOfi iQMXsj"]')).toHaveText('Drag & drop files to upload');
     await this.backDatasetskBtn.click();
   }
 
@@ -116,9 +116,11 @@ export class Navigation {
     await this.userRankingItem.click();
     await this.page.waitForURL(/rankings/);
     await expect (this.page.locator('(//h1)[1]')).toHaveText('Kaggle Rankings');
-    // const rows = await this.page.locator('//div[@role="row"]').count();  //Oleksii: for some reason this count returns me 0. Wanted to check that number of rows on the page > 1
-    // console.log(rows);
-    await expect (this.page.locator('(//div[@role="row"])[1]')).toBeVisible()
+    await this.page.locator('//div[@role="row" and @data-id]').first().waitFor();
+    const rows = await this.page.locator('//div[@role="row" and @data-id]').count();
+    console.log(await rows);
+    await expect(await this.page.locator('//div[@role="row" and @data-id]').count()).toBeGreaterThanOrEqual(1);
+    // await expect (this.page.locator('(//div[@role="row"])[1]')).toBeVisible()
   }
 
   async openBlog(){
