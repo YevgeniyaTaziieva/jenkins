@@ -12,7 +12,7 @@ import { defineConfig, devices } from '@playwright/test';
  */
 
 export default defineConfig({
-  testDir: './tests/local',
+  testDir: './tests',
   timeout: 5 * 6 * 1000,
   fullyParallel: false,
   // forbidOnly: !!process.env.CI,
@@ -29,7 +29,7 @@ export default defineConfig({
       name: 'chromium',
       use: { 
         ...devices['Desktop Chrome'],
-        launchOptions: {
+        launchOptions: { 
           args: ['--disable-web-security',
               '--use-fake-ui-for-media-stream',
               '--use-fake-device-for-media-stream'
