@@ -34,12 +34,12 @@ test.describe("Kaggle Search Tests", () => {
     // Перевірити наявність результатів
     await expect(kagglePage.searchResultItem).toHaveCount(1);
   });
-  test("should display 'No results found' page when no results found", async ({ page }) => {
+  test.only("should display 'No results found' page when no results found", async ({ page }) => {
     const kagglePage = new SearchPage(page);
 
     // Search (not existing value)
-    await kagglePage.searchFor('Sed ut perspiciatis.');
-    await expect(kagglePage.searchField).toHaveValue('Sed ut perspiciatis.');
+    await kagglePage.searchFor('якийсь текст українською');
+    await expect(kagglePage.searchField).toHaveValue('якийсь текст українською');
 
 
     //Check for content 
