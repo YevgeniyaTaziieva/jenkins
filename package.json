@@ -14,7 +14,8 @@
     "tests:study:dot": "playwright test --config=study.config.ts --reporter=dot",
     "tests:study:list": "playwright test --config=study.config.ts --reporter=list",
     "tests:study:line": "playwright test --config=study.config.ts --reporter=line",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "smoke": "playwright test --config=datasets.config.ts --debug"
   },
   "keywords": [],
   "type": "module",
