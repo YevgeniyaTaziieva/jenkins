@@ -11,8 +11,8 @@ export class DatasetsPage extends BasePage{
     constructor(page){
         super(page);
         this.datasetsPageLocator = page.locator("(//a[@class='sc-dmcoYd ggdQcj'])[4]");
-        this.upvoteButton = page.locator('//button[@data-testid="upvotebutton__upvote" and contains(@class, "sc-hSWyVn") and contains(@class, "sc-hEwMvu") and contains(@class, "iJoZbm") and contains(@class, "ekdYGr")]');
-        this.newNotebookButton = page.locator('//button[contains(@class, "sc-eXzmLu") and contains(@class, "gTGvCn") and contains(@class, "sc-bzCKyS") and contains(@class, "iOlrQJ")]');
+        this.upvoteButton = page.locator('//button/preceding-sibling::button[@data-testid="upvotebutton__upvote"]');
+        this.newNotebookButton = page.locator("//button[@class='sc-eXzmLu gTGvCn sc-euVzoJ dIEZgW']");
         this.downloadButton = page.locator('//div[@class="sc-ggziSB sc-dtWPdH lnorZa cPHowe"]');
     } 
 
