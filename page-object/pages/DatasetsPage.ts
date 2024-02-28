@@ -16,6 +16,7 @@ export class DatasetsPage extends BasePage{
         this.downloadButton = page.locator('//div[@class="sc-ggziSB sc-dtWPdH lnorZa cPHowe"]');
     } 
 
+    
     async openDatasetsPage(){
         await super.openMainPage;
         await this.datasetsPageLocator.click();
