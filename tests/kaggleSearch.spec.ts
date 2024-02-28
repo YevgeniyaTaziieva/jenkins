@@ -21,11 +21,11 @@ test.describe("Kaggle Search Tests", () => {
 
     // Set Dataset filter
     await kagglePage.filterByDatasetSize();
-    await expect(kagglePage.filterByDatasetSizeBtn).toBeVisible();
+    await expect(kagglePage.filterByDatasetSizeSmallBtn).toBeVisible();
 
     // Set Dataset filter
     await kagglePage.filterByFileType();
-    await expect(kagglePage.filterByFileTypeBtn).toBeVisible();
+    await expect(kagglePage.filterByFileTypeCsvBtn).toBeVisible();
 
     // Check results
     await expect(kagglePage.searchResultItem).toHaveCount(1);

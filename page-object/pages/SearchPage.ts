@@ -8,9 +8,15 @@ searchPageLocator: any;
   readonly filterByDateBtn: Locator;
   readonly filterByViewedBtn: Locator;
   readonly filterByCreatorBtn: Locator;
-  readonly filterByDatasetSizeBtn: Locator;
-  readonly filterByFileTypeBtn: Locator;
-  readonly filterByLicenseBtn: Locator;
+  readonly filterByDatasetSizeSmallBtn: Locator;
+  readonly filterByDatasetSizeMediumBtn: Locator;
+  readonly filterByDatasetSizeLargeBtn: Locator;
+  readonly filterByFileTypeCsvBtn: Locator;
+  readonly filterByFileTypeXlsxBtn: Locator;
+  readonly filterByFileTypeJsonBtn: Locator;
+  readonly filterByLicenseOtherBtn: Locator;
+  readonly filterByLicenseCommercialBtn: Locator;
+  readonly filterByLicenseNoncommercialBtn: Locator;
   readonly searchResultItem: Locator;
   readonly selectedFilterOption: Locator;
   readonly searchResultAmount: Locator;
@@ -25,9 +31,15 @@ searchPageLocator: any;
     this.filterByDateBtn = page.locator("//input[@class='PrivateSwitchBase-input css-1m9pwf3'][@name=':r0:'][@value='90']")
     this.filterByViewedBtn = page.locator("//input[@class='PrivateSwitchBase-input css-1m9pwf3'][@name=':r4:'][@value=' Not  Viewed']")
     this.filterByCreatorBtn = page.locator("//input[@class='PrivateSwitchBase-input css-1m9pwf3'][@name=':r5:'][@value=' Others']")
-    this.filterByDatasetSizeBtn = page.locator("//input[@class='PrivateSwitchBase-input css-1m9pwf3'][@name='datasetSize:small']");
-    this.filterByFileTypeBtn = page.locator("//input[@class='PrivateSwitchBase-input css-1m9pwf3'][@name='datasetFileTypes:csv']")
-    this.filterByLicenseBtn = page.locator("//input[@class='PrivateSwitchBase-input css-1m9pwf3'][@name='datasetLicense:Commercial']");
+    this.filterByDatasetSizeSmallBtn = page.locator("//input[@class='PrivateSwitchBase-input css-1m9pwf3'][@name='datasetSize:small']");
+    this.filterByDatasetSizeMediumBtn = page.locator("//input[@class='PrivateSwitchBase-input css-1m9pwf3'][@name='datasetSize:medium']");
+    this.filterByDatasetSizeLargeBtn = page.locator("//input[@class='PrivateSwitchBase-input css-1m9pwf3'][@name='datasetSize:large']");
+    this.filterByFileTypeCsvBtn = page.locator("//input[@class='PrivateSwitchBase-input css-1m9pwf3'][@name='datasetFileTypes:csv']")
+    this.filterByFileTypeXlsxBtn = page.locator("//input[@class='PrivateSwitchBase-input css-1m9pwf3'][@name='datasetFileTypes:xlsx']")
+    this.filterByFileTypeJsonBtn = page.locator("//input[@class='PrivateSwitchBase-input css-1m9pwf3'][@name='datasetFileTypes:json']")
+    this.filterByLicenseOtherBtn = page.locator("//input[@class='PrivateSwitchBase-input css-1m9pwf3'][@name='datasetLicense:Other']");
+    this.filterByLicenseCommercialBtn = page.locator("//input[@class='PrivateSwitchBase-input css-1m9pwf3'][@name='datasetLicense:Commercial']");
+    this.filterByLicenseNoncommercialBtn = page.locator("//input[@class='PrivateSwitchBase-input css-1m9pwf3'][@name='datasetLicense:Non-Commercial']");
     this.searchResultItem = page.locator("//div[@id='results']");
     this.noResultsFoundContentTitle = page.locator("//h2[@class='sc-fHejqy sc-eUcPGm JwKtU kqzTJI']");
     this.popularTagsSection = page.locator("//div[@class='sc-lihxfj ikMyaq mdc-chip-set']");
@@ -47,15 +59,15 @@ searchPageLocator: any;
   }
 
   async filterByDatasetSize() {
-    await this.filterByDatasetSizeBtn.click();
+    await this.filterByDatasetSizeSmallBtn.click();
   }
 
   async filterByFileType() {
-    await this.filterByFileTypeBtn.click();
+    await this.filterByFileTypeCsvBtn.click();
   }
 
   async filterByLicense() {
-    await this.filterByLicenseBtn.click();
+    await this.filterByLicenseOtherBtn.click();
   }
 
   async getFirstSearchResult() {
