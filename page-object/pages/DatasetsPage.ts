@@ -9,7 +9,7 @@ export class DatasetsPage extends BasePage{
         this.datasetsPageLocator = page.locator("//a[@data-click-log-id='nav-con-datasets']");
     }
     async openDatasetsPage(){
-        await super.openMainPage;
+        await super.openMainPage();
         await this.datasetsPageLocator.click();
     }
 }
