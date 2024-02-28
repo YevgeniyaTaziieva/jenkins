@@ -29,7 +29,7 @@ export default defineConfig({
       name: 'chromium',
       use: { 
         ...devices['Desktop Chrome'],
-        launchOptions: {
+        launchOptions: { 
           args: ['--disable-web-security',
               '--use-fake-ui-for-media-stream',
               '--use-fake-device-for-media-stream'
