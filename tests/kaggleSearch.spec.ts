@@ -24,11 +24,7 @@ test.describe("Kaggle Search Tests", () => {
     await kagglePage.filterByFileType();
     await expect(kagglePage.filterByFileTypeBtn).toBeVisible();
 
-    // // Set License filter
-    // await kagglePage.filterByLicense();
-    // await expect(kagglePage.filterByLicenseBtn).toBeVisible();
-
-    // Перевірити наявність результатів
+    // Check results
     await expect(kagglePage.searchResultItem).toHaveCount(1);
   });
 });
