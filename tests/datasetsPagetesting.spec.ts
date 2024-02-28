@@ -12,7 +12,7 @@ test('Notebook opening', async ({ page }) => {
   await loginPage.login();
   const datasetsPage = new DatasetsPage(page);
   await page.waitForLoadState();
-  await datasetsPage.openDatasetsPage();
+  await datasetsPage.openDatasetsPageinNav();
   const searchInputLocator = page.locator('Search datasets');
   await page.getByPlaceholder('Search datasets').click();
   await page.getByPlaceholder('Search datasets').fill('grand-theft-auto-v');
@@ -34,7 +34,7 @@ test('Set file downloading', async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.login();
   const datasetsPage = new DatasetsPage(page);
-  await datasetsPage.openDatasetsPage();
+  await datasetsPage.openDatasetsPageinNav();
   const searchInputLocator = page.locator('Search datasets');
   await page.getByPlaceholder('Search datasets').click();
   await page.getByPlaceholder('Search datasets').fill('grand-theft-auto-v');
@@ -59,7 +59,7 @@ test('Upvoting', async ({ page }) => {
   await loginPage.login();
   const datasetsPage = new DatasetsPage(page);
   await page.waitForLoadState();
-  await datasetsPage.openDatasetsPage();
+  await datasetsPage.openDatasetsPageinNav();
   const searchInputLocator = page.locator('Search datasets');
   await page.getByPlaceholder('Search datasets').click();
   await page.getByPlaceholder('Search datasets').fill('grand-theft-auto-v');

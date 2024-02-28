@@ -2,9 +2,9 @@
   "name": "timelycare",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "tests": "playwright test --workers 1",
+    "tests": "playwright test --workers 1 --headed --debug ",
     "tests:ui": "playwright test --ui",
     "tests:all": "playwright test --workers 1",
     "tests:headed": "playwright test --workers 1 --headed",
@@ -14,7 +14,8 @@
     "tests:study:dot": "playwright test --config=study.config.ts --reporter=dot",
     "tests:study:list": "playwright test --config=study.config.ts --reporter=list",
     "tests:study:line": "playwright test --config=study.config.ts --reporter=line",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "smoke": "playwright test --config=datasets.config.ts --debug"
   },
   "keywords": [],
   "type": "module",
@@ -22,7 +23,7 @@
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.40.1",
-    "@types/node": "^20.10.5",
+    "@types/node": "^20.11.19",
     "@typescript-eslint/eslint-plugin": "^6.20.0",
     "@typescript-eslint/parser": "^6.20.0",
     "eslint": "^8.56.0"
