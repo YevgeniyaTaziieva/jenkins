@@ -5,9 +5,11 @@ test("Login to site", async ({ loginPage, page }) => {
     const login = new LoginPage(page);
     await login.login();
     // await page.getByRole('button', { name: 'Dismiss' }).click();
-    await page.waitForTimeout(500);
+    //await page.waitForTimeout(500);
+    await page.waitForLoadState();
     // await login.Navigation.newModel();
     // await login.Navigation.newOrganization();
+    await login.Navigation.newCompetition();
     await login.Navigation.newDataset();
     // await login.Navigation.openKaggleX();
     // await login.Navigation.openDocumentation();

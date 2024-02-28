@@ -81,6 +81,19 @@ export class Navigation {
     await expect (this.page.locator('(//button[@role="button" and contains(@class,"sc")])[14]')).toHaveAttribute('disabled');
   }
 
+  async newCompetition(){
+    await this.page.goto(process.env.STAGE_URL as string);
+    await this.createBtn.click();
+    const [newPage] = await Promise.all([
+      this.page.waitForEvent('popup'),
+      this.newCompetitionItem.click(),
+    ]);
+    await newPage.bringToFront();
+    await newPage.waitForURL(`${process.env.STAGE_URL}competitions/new`);
+    await expect (newPage.locator('//h3')).toHaveText('Create a Competition');
+    await newPage.close()
+  } 
+
   async newOrganization(){
     await this.page.goto(process.env.STAGE_URL as string);
     await this.createBtn.click();
