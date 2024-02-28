@@ -4,8 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+
     "start": "nodemon index.js",
-    "tests": "playwright test --config=search.config.ts --headed --debug"
+    "tests": "playwright test --config=search.config.ts --headed --debug --workers 1"
+    "tests:ui": "playwright test --ui",
+    "tests:all": "playwright test --workers 1",
+    "tests:headed": "playwright test --workers 1 --headed",
+    "tests:debug": "playwright test --workers 1 --headed --debug",
+    "tests:lambda": "playwright test --config=playwright-lambda.config.ts --debug",
+    "tests:local": "playwright test --config=playwright.config.ts --headed",
+    "tests:study:dot": "playwright test --config=study.config.ts --reporter=dot",
+    "tests:study:list": "playwright test --config=study.config.ts --reporter=list",
+    "tests:study:line": "playwright test --config=study.config.ts --reporter=line",
+    "smoke": "playwright test --config=datasets.config.ts --debug"
+
   },
   "keywords": [],
   "type": "module",
