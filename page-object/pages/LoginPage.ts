@@ -13,6 +13,8 @@ export class LoginPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
+    this.signInBtn = page.locator("(//button[@class='sc-eXzmLu jSfUoM'])[1]");
+    this.signInByEmailBtn = page.locator("(//span[@class='sc-bBkKde epgXIi'])[2]");
     this.signInBtn = page.locator("//div[@class='sc-dxfTlo dqVlR']/a/button[@class='sc-eXzmLu jSfUoM'][1]");
     this.signInByEmailBtn = page.locator("(//div/button[@role='button']/i)[1]");
     this.emailField = page.locator("//input[@name='email']");
@@ -20,8 +22,12 @@ export class LoginPage extends BasePage {
     this.submitBtn = page.locator("//button[@type='submit']");
     this.kaggleTitle = page.locator("//h1")/*[@class='sc-kFCroH sc-idnTxV ctlLBx SklmE']")*/
   }
-  async login() {
+  async openMainPage(): Promise<void> {
     await this.page.goto(process.env.STAGE_URL as string);
+  }
+
+  async login() {
+    await this.openMainPage();
     await this.signInBtn.click();
     await this.signInByEmailBtn.click();
     await this.emailField.fill(process.env.EMAIL as string);
