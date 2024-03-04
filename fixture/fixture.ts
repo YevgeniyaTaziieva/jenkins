@@ -14,8 +14,7 @@ export const test = baseTest.extend<TestType>({
     let loginPage = new LoginPage(page);
     await use(loginPage);
   },
-  
-    datasetsPage: async ({page}, use) =>{
+  datasetsPage: async ({page}, use) =>{
     let datasetsPage = new DatasetsPage(page);
     await use(datasetsPage);
   },
