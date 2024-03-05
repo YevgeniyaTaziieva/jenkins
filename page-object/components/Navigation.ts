@@ -30,7 +30,7 @@ export class Navigation {
   constructor(page: Page) {
     this.page = page
     this.createBtn = page.getByRole('button', { name: 'Create' });
-    this.homeIcon = page.getByRole('link', { name: 'Kaggle' });
+    this.homeIcon = page.locator('(//img[@alt="Kaggle"])[1]');
     this.newNotebookItem = page.getByRole('menuitem', { name: 'New Notebook' }).getByRole('paragraph');
     this.newDatasetItem = page.getByRole('menuitem', { name: 'New Dataset' });
     this.newModelItem = page.getByRole('menuitem', { name: 'New Model' });
@@ -54,7 +54,7 @@ export class Navigation {
   }
   async goHome() {
     await this.homeIcon.click()
-    await expect(this.page.waitForURL(process.env.STAGE_URL as string))
+    expect(this.page.waitForURL(process.env.STAGE_URL as string))
     await expect(this.page.locator('//h1')).toContainText('Welcome')
   }
 
@@ -132,7 +132,6 @@ export class Navigation {
     const rows = await this.page.locator('//div[@role="row" and @data-id]').count();
     console.log(await rows);
     await expect(await this.page.locator('//div[@role="row" and @data-id]').count()).toBeGreaterThanOrEqual(1);
-    // await expect (this.page.locator('(//div[@role="row"])[1]')).toBeVisible()
   }
 
   async openBlog(){

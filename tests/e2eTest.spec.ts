@@ -11,6 +11,7 @@ test("Login to site", async ({ loginPage, page }) => {
     await login.Navigation.newCompetition();
     await login.Navigation.newDataset();
     await login.Navigation.openUserRankings();
+    await login.Navigation.goHome();
     await login.Navigation.openPrivacy();
     await page.pause();
 });
