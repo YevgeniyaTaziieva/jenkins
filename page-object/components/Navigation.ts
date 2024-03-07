@@ -30,14 +30,13 @@ export class Navigation {
   constructor(page: Page) {
     this.page = page
     this.createBtn = page.getByRole('button', { name: 'Create' });
-    this.createBtn = page.getByRole('button', { name: 'Create' });
-    this.homeIcon = page.getByRole('link', { name: 'Kaggle' });
-    this.newNotebookItem = page.getByRole('menuitem', { name: 'code New Notebook' }).getByRole('paragraph');
-    this.newDatasetItem = page.getByRole('menuitem', { name: 'table_chart New Dataset' });
-    this.newModelItem = page.locator('(//ul/li[@role="menuitem"])[3]');
-    this.newCompetitionItem = page.getByRole('menuitem', { name: 'emoji_events New Competition' });
-    this.newOrganizationItem = page.getByRole('menuitem', { name: 'corporate_fare' })
-    this.moreList = page.locator('//div/div[3]/div[3]/div[1]/div[1]/ul/li[8]/div/a');
+    this.homeIcon = page.locator('(//img[@alt="Kaggle"])[1]');
+    this.newNotebookItem = page.getByRole('menuitem', { name: 'New Notebook' }).getByRole('paragraph');
+    this.newDatasetItem = page.getByRole('menuitem', { name: 'New Dataset' });
+    this.newModelItem = page.getByRole('menuitem', { name: 'New Model' });
+    this.newCompetitionItem = page.getByRole('menuitem', { name: 'New Competition' });
+    this.newOrganizationItem = page.getByRole('menuitem', { name: 'New Organization' })
+    this.moreList = page.locator('//a[@data-click-log-id="more"]');
     this.userRankingItem = page.locator('//ul/a[@href="/rankings"]/li');
     this.blogItem = page.locator('//a/li[@data-click-log-id="blog"]');
     this.documentationItem = page.locator('//a[@href="/docs"]');
@@ -55,7 +54,7 @@ export class Navigation {
   }
   async goHome() {
     await this.homeIcon.click()
-    await expect(this.page.waitForURL(process.env.STAGE_URL as string))
+    expect(this.page.waitForURL(process.env.STAGE_URL as string))
     await expect(this.page.locator('//h1')).toContainText('Welcome')
   }
 
@@ -76,7 +75,7 @@ export class Navigation {
     await this.page.locator('(//input[@type="radio"])[1]').waitFor();
     await expect (this.page.locator('(//input[@type="radio"])[1]')).toHaveAttribute('checked');
     await expect (this.page.locator('(//input[@type="radio"])[2]')).not.toHaveAttribute('checked');
-    await expect (this.page.getByRole('heading', { name: 'Create New Model' })).toBeVisible();
+    await expect (this.page.locator('//button/following-sibling::h1')).toBeVisible();
     await expect (this.page.locator('label').filter({ hasText: 'Model Title' })).toBeVisible();
     await expect (this.page.locator('(//button[@role="button" and contains(@class,"sc")])[14]')).toHaveAttribute('disabled');
   }
@@ -104,11 +103,11 @@ export class Navigation {
     await expect (this.page.locator('(//label[@aria-labelledby="textfield-Url *-label"]/span)[2]')).toContainText('organizations');
     await expect (this.page.locator('//input[@name="externalUrl"]')).toBeTruthy();
     await expect (this.page.getByRole('button', { name: 'Upload image' })).toBeTruthy();
-    await expect (this.page.getByRole('button', { name: 'Upload image' })).not.toHaveAttribute('disabled');
+    await expect (this.page.locator('//button[@type="button"]')).not.toHaveAttribute('disabled');
     await expect (this.page.locator('//input[@name="creatorRequestDescription"]')).toBeTruthy();
     await expect (this.page.locator('//div[contains(@class,"mdc-text-field mdc-text-field--upgraded mdc-text-field--outlined")]')).toBeTruthy();
     await expect (this.page.locator('//input[@name="creatorRequestRole"]')).toBeTruthy();
-    await expect (this.page.getByRole('button', { name: 'Create organization' })).toHaveAttribute('disabled');
+    await expect (this.page.locator('//button[@type="submit"]')).toHaveAttribute('disabled');
   }
 
   async newDataset(){
@@ -133,7 +132,6 @@ export class Navigation {
     const rows = await this.page.locator('//div[@role="row" and @data-id]').count();
     console.log(await rows);
     await expect(await this.page.locator('//div[@role="row" and @data-id]').count()).toBeGreaterThanOrEqual(1);
-    // await expect (this.page.locator('(//div[@role="row"])[1]')).toBeVisible()
   }
 
   async openBlog(){
