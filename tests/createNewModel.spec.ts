@@ -29,6 +29,6 @@ test("Create new model", async({page}) => {
     }
     finally
     {
-        await deleteModel(new ModelsPage(page), "https://www.kaggle.com/models/oksanm/heverOwner");
+        await deleteModel(new ModelsPage(page), String(process.env.STAGE_URL) + "models/oksanm/heverOwner");
     }
 })
