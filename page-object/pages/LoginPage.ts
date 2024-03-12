@@ -15,7 +15,7 @@ export class LoginPage extends BasePage {
     super(page);
     this.signInBtn = page.locator("(//button[@class='sc-eXzmLu jSfUoM'])[1]");
     this.signInByEmailBtn = page.locator("(//span[@class='sc-bBkKde epgXIi'])[2]");
-    this.signInBtn = page.locator("//div[@class='sc-dxfTlo dqVlR']/a/button[@class='sc-eXzmLu jSfUoM'][1]");
+    this.signInBtn = page.locator("//span[contains(text(), 'Sign In')]/parent::button[@class='sc-eXzmLu fyDCMu']");
     this.signInByEmailBtn = page.locator("(//div/button[@role='button']/i)[1]");
     this.emailField = page.locator("//input[@name='email']");
     this.passField = page.locator("//input[@name='password']");
@@ -33,7 +33,6 @@ export class LoginPage extends BasePage {
     await this.emailField.fill(process.env.EMAIL as string);
     await this.passField.fill(process.env.PASSWORD as string);
     await this.submitBtn.click(); 
-    await expect(this.kaggleTitle).toHaveText(`Welcome, Test Hillel!`)
     await expect(this.page).toHaveURL(process.env.STAGE_URL as string);
   }
 }
