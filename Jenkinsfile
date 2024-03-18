@@ -1,4 +1,3 @@
-pipeline {
   stages {
     stage('Update playwright') {
       steps {
@@ -22,4 +21,3 @@ pipeline {
       }
     }
   }
-}
