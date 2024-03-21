@@ -22,7 +22,8 @@ export default defineConfig({
   use: {
     // baseURL: 'https://staging.timelycare.com/',
     trace: 'on-first-retry',
-    screenshot:"only-on-failure"
+    screenshot:"only-on-failure",
+    headless: true
   },
   projects: [
     {
