@@ -7,7 +7,7 @@ pipeline {
   stages {
     stage('Update playwright') {
       steps {
-        sh '''
+        cmd /c '''
           npm i -D @playwright/test
           npx playwright install
         '''
@@ -15,14 +15,14 @@ pipeline {
     }
     stage('test') {
       steps {
-        sh '''
+        cmd /c '''
         npm run smoke
         '''
       }
       post {
         success {
           archiveArtifacts(artifacts: 'homepage-*.png', followSymlinks: false)
-          sh 'rm -rf *.png'
+          cmd /c 'rm -rf *.png'
         }
       }
     }
