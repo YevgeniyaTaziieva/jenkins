@@ -23,6 +23,10 @@ RUN apt-get update && apt-get install -y \
     libxdamage1 \
     libxrandr2 \
     xdg-utils \
+    libxss1 \
+    libxtst6 \
+    libgtk-3-0 \  # Додано бібліотеку libgtk-3-0
+    libasound2 \  # Додано бібліотеку libasound2
     --no-install-recommends
 
 # Install Node.js from Nodesource binaries
