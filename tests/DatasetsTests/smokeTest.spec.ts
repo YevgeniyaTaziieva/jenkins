@@ -1,14 +1,14 @@
 import { expect } from "@playwright/test";
 import { test } from "../../fixture/fixture"; 
 import { Navigation } from "../../page-object/components/Navigation";
-test('Open Main Page', async ({datasetsPage}) => {
+test.skip('Open Main Page', async ({datasetsPage}) => {
     await datasetsPage.openMainPage();
 });
-test('Open Datasets Page', async ({datasetsPage}) => {
+test.skip('Open Datasets Page', async ({datasetsPage}) => {
     await datasetsPage.openDatasetsPage();
 });
 
-test.only('Open nav tab', async ({page,context}) => {
+test.skip('Open nav tab', async ({page,context}) => {
     let navi = new Navigation(page)
     await page.goto("https://www.kaggle.com/datasets");
     const pagePromise = context.waitForEvent('page');

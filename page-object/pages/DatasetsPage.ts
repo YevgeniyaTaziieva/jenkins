@@ -8,6 +8,7 @@ export class DatasetsPage extends BasePage{
     readonly upvoteButton: Locator;
     readonly newNotebookButton: Locator;
     readonly downloadButton: Locator;
+    readonly filterButton: Locator;
 
     constructor(page){
         super(page);
@@ -15,6 +16,7 @@ export class DatasetsPage extends BasePage{
         this.upvoteButton = page.locator('//button/preceding-sibling::button[@data-testid="upvotebutton__upvote"]');
         this.newNotebookButton = page.locator("//button[@class='sc-eXzmLu gTGvCn sc-euVzoJ dIEZgW']");
         this.downloadButton = page.locator('//div[@class="sc-ggziSB sc-dtWPdH lnorZa cPHowe"]');
+        this.filterButton = page.Locator('.sc-jMCldn ewPXpJ')
     }
     async openDatasetsPage(){
         await super.openMainPage();
@@ -35,6 +37,10 @@ export class DatasetsPage extends BasePage{
 
     async SetDownload() {
       await this.downloadButton.click();
+    }
+
+    async Filter() {
+      await this.filterButton.click();
     }
 
 }
