@@ -23,10 +23,6 @@ RUN apt-get update && apt-get install -y \
     libxdamage1 \
     libxrandr2 \
     xdg-utils \
-    libxss1 \
-    libxtst6 \
-    libgtk-3-0 \  # Додано бібліотеку libgtk-3-0
-    libasound2 \  # Додано бібліотеку libasound2
     --no-install-recommends
 
 # Install Node.js from Nodesource binaries
@@ -42,6 +38,9 @@ RUN playwright install-deps chromium
 # Clean up apt cache and temporary files to reduce image size
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Add permissions for Jenkins user
+RUN chmod -R 777 /var/jenkins_home
 
 # Switch back to the jenkins user
 USER jenkins
